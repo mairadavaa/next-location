@@ -1,23 +1,37 @@
-// import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer } from "react-leaflet";
-// import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
-// import "leaflet-defaulticon-compatibility";
-// import { MarkerComponent } from "./Marker";
+import { useState } from 'react';
+
+
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+
+import Map, { NavigationControl, Marker } from 'react-map-gl';
+import maplibregl from 'maplibre-gl';
 
 export default function MapGoogle() {
+  const [geoData] = useState({ lat: 47.9135656, lng: 106.9254985 });
+
   return (
-    <MapContainer
+    <Map mapLib={maplibregl}
+      initialViewState={{
+        longitude: geoData.lng,
+        latitude: geoData.lat,
+        zoom: 14
+      }}
       style={{ width: "100%", height: "100vh" }}
-      center={[47.9135656, 106.9254985]}
-      zoom={13}
-      scrollWheelZoom={true}
+      mapStyle="https://api.maptiler.com/maps/streets-v2/style.json?key=hBhtGFTW42VCIxJqnG4F"
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {/* <MarkerComponent /> */}
-    </MapContainer>
-  );
+      <NavigationControl position='top-left'/>
+      {/* {drivers?.map((driver) => {
+        return (
+          <Marker 
+            color='red' 
+            longitude={driver.currentPosition?.longitude} 
+            latitude={driver.currentPosition?.latitude}
+           />
+        )
+      })
+      } */}
+    </Map>
+  )
 }
+  

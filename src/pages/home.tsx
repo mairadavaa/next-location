@@ -76,7 +76,7 @@ export default function Homes() {
         <Image
           src={mapbackground}
           layout="fill"
-          
+          alt= "map"
         />
         <Box sx={{ position: "absolute", display:'flex',height:'100%', bottom: 20, right: 30, flexDirection: 'column', justifyContent: 'flex-end'}}>
 

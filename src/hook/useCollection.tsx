@@ -10,7 +10,7 @@ const useCollection = (path: string) => {
             setData(docSnap.docs.map(doc => doc.data()));
         }
         getCollection()
-    }, []);
+    }, [path]);
     return data;
 }
 
