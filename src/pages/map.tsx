@@ -14,16 +14,23 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
+import AddIcon from '@mui/icons-material/Add'
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import DriverCard from '../component/Card';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import AddDriver from '@/component/AddDriver';
 
 
 function Map() {
   const MapGoogle = dynamic(() => import("../component/MapGoogle"))
   const [isTrueDriver, setIsTrueDriver] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const drawer = (
     <div>
       <Toolbar />
@@ -81,7 +88,46 @@ function Map() {
       </Box>
     
       {isTrueDriver && (
-      <Box flex={1.7} display='flex' bgcolor="#d9ddc" padding={2}>
+      <Box flex={1.7} display='flex' bgcolor="#d9ddc" padding={2} flexDirection="column" >
+        <Box width={350} height={50} bgcolor="white" marginBottom={10} display="flex" justifyContent="center" alignItems="center"
+   
+        >
+         <Button
+              sx={{
+                width: "80%",
+                height: 50,
+                display: "flex",
+                justifyContent: "space-between",
+                backgroundColor: "#fff",
+                
+                color: "#000",
+              }}
+              endIcon={
+                <AddIcon
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 1,
+                    backgroundColor: "#EEF1F4",
+                    color: "#707070",
+                  
+                  }}
+                />
+              }
+              onClick={handleOpen}
+            >
+              Жолооч бүртгэх
+              </Button>
+        </Box>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <AddDriver/>
+        
+      </Modal>
         <DriverCard/>
       </Box>)}
       <Box flex={4.3} display='flex'>

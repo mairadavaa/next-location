@@ -6,8 +6,12 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 import Map, { NavigationControl, Marker } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
+import useCollection from '@/hook/useCollection';
 
 export default function MapGoogle() {
+  const staffs = useCollection('staff');
+ 
+  console.log(staffs)
   const [geoData] = useState({ lat: 47.9135656, lng: 106.9254985 });
 
   return (
@@ -21,16 +25,16 @@ export default function MapGoogle() {
       mapStyle="https://api.maptiler.com/maps/streets-v2/style.json?key=hBhtGFTW42VCIxJqnG4F"
     >
       <NavigationControl position='top-left'/>
-      {/* {drivers?.map((driver) => {
-        return (
-          <Marker 
-            color='red' 
-            longitude={driver.currentPosition?.longitude} 
-            latitude={driver.currentPosition?.latitude}
-           />
-        )
-      })
-      } */}
+      {staffs?.map((el, idx) => (
+            <Marker 
+              key={idx}
+              color='red' 
+              longitude={el.position.longitude} 
+              latitude={el.position.latitude}
+             />
+      )
+      )}
+      
     </Map>
   )
 }
