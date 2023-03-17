@@ -10,10 +10,8 @@ import useCollection from '@/hook/useCollection';
 
 export default function MapGoogle() {
   const staffs = useCollection('staff');
- 
-  console.log(staffs)
+  // console.log("staffs",staffs?.position?.longitude)
   const [geoData] = useState({ lat: 47.9135656, lng: 106.9254985 });
-
   return (
     <Map mapLib={maplibregl}
       initialViewState={{
@@ -25,15 +23,26 @@ export default function MapGoogle() {
       mapStyle="https://api.maptiler.com/maps/streets-v2/style.json?key=hBhtGFTW42VCIxJqnG4F"
     >
       <NavigationControl position='top-left'/>
-      {staffs?.map((el, idx) => (
-            <Marker 
-              key={idx}
-              color='red' 
-              longitude={el.position.longitude} 
-              latitude={el.position.latitude}
-             />
-      )
-      )}
+      <Marker 
+            color='red' 
+            longitude={staffs?.position?.longitude === undefined ? 50 : staffs?.position?.longitude } 
+            latitude={ staffs?.position?.latitude === undefined ? 50 : staffs?.position?.latitude }
+          />
+      {/* {staffs?.map((el, idx) => {
+
+        console.log(el?.position?.longitude)
+        return(
+ 
+          <Marker 
+            key={idx}
+            color='red' 
+            longitude={el?.position?.longitude} 
+            latitude={el?.position?.latitude}
+           />
+        )
+      
+        }
+      )} */}
       
     </Map>
   )
